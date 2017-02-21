@@ -1,0 +1,95 @@
+{
+  "member": {
+    "memberID": 9,
+    "memberName": "Francesca Iyengar",
+    "memberFaceBookId": "sharmila_04@hotmail.com",
+    "memberEmail": "sharmila_04@hotmail.com",
+    "memberRegisteredDate": "2016-03-14 04:00",
+    "memberLastActiveDate": "2016-07-30 04:00",
+    "memberCurrency": "usd"
+  },
+  "memberActivities": [
+    {
+      "activityID": 1,
+      "activityName": "Abstain from alcohol",
+      "activityDescription": "Do not drink alcohol for a day",
+      "value": 6
+    },
+    {
+      "activityID": 2,
+      "activityName": "Take Lunch to work",
+      "activityDescription": "Avoid eating lunch outside for a day",
+      "value": 4
+    }
+  ],
+  "pledges": [
+    {
+      "pledgeID": 17,
+      "pledgeName": "Drink Tea",
+      "pledgeMemberActivityId": 13,
+      "pledgeCauseId": 5,
+      "pledgeStartDate": "2016-12-25",
+      "pledgeEndDate": "2016-12-29",
+      "pledgeUnits": 5,
+      "pledgeComments": null,
+      "activity": {
+        "activityID": 1,
+        "activityName": "Abstain from alcohol",
+        "activityDescription": "Do not drink alcohol for a day",
+        "value": 6
+      },
+      "active": false,
+      "causeName": "Seva",
+      "completedUnits": 2,
+      "earnedValue": 12,
+      "checkInsForPledge": [
+        {
+          "checkInID": 19,
+          "checkInDate": "2016-12-26",
+          "checkInUnits": 1,
+          "checkInComments": null,
+          "checkInPledgeID": 17,
+          "checkInValue": 6
+        },
+        {
+          "checkInID": 20,
+          "checkInDate": "2016-12-27",
+          "checkInUnits": 1,
+          "checkInComments": null,
+          "checkInPledgeID": 17,
+          "checkInValue": 6
+        }
+      ]
+    },
+    {
+      "pledgeID": 15,
+      "pledgeName": "No Alcohol",
+      "pledgeMemberActivityId": 14,
+      "pledgeCauseId": 4,
+      "pledgeStartDate": "2016-12-25",
+      "pledgeEndDate": "2016-12-30",
+      "pledgeUnits": 4,
+      "pledgeComments": null,
+      "activity": {
+        "activityID": 2,
+        "activityName": "Take Lunch to work",
+        "activityDescription": "Avoid eating lunch outside for a day",
+        "value": 4
+      },
+      "active": false,
+      "causeName": "Feeding America",
+      "completedUnits": 1,
+      "earnedValue": 4,
+      "checkInsForPledge": [
+        {
+          "checkInID": 18,
+          "checkInDate": "2016-12-26",
+          "checkInUnits": 1,
+          "checkInComments": "0",
+          "checkInPledgeID": 15,
+          "checkInValue": 4
+        }
+      ]
+    }
+  ]
+}

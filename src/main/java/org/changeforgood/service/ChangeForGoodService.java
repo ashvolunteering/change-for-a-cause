@@ -241,6 +241,7 @@ public MemberInfo loadMemberInfo(long memberID)
 	List<Activity> memberActivities = new ArrayList<Activity>();
 	List<Pledge> allPledges = new ArrayList<Pledge>();
 	
+
 	Iterator<MemberActivity> iterator = memberActivityList.iterator();
 	
 	while (iterator.hasNext())
@@ -250,46 +251,12 @@ public MemberInfo loadMemberInfo(long memberID)
 		activity.setValue(memberActivity.getValue());
 		memberActivities.add(activity);
 		int id = (int)memberActivity.getMemberActivityID();
-		List<Pledge> pledges = pledgeRepository.findByPledgeMemberActivityId(id);
-		Iterator<Pledge> pledgeIterator = pledges.iterator();
 		
-		while (pledgeIterator.hasNext())
-		{
-			Pledge pledge = pledgeIterator.next();
-			pledge.setActivity(activity);
+		List<Pledge> pledges = pledgeRepository.findByPledgeMemberActivityId(id);
+		
+		loadPledges(activity, pledges);
+					
 			
-			Date today = new Date();
-			
-			if (pledge.getPledgeEndDate().compareTo(today) < 0)
-			{
-				pledge.setActive(false);
-			}
-			else
-			{
-				pledge.setActive(true);
-			}
-			
-			Cause cause = causeRepository.findByCauseID(pledge.getPledgeCauseId());
-			pledge.setCauseName(cause.getCauseName());
-			
-			List<CheckIn> checkInsForPledge = checkInRepository.findByCheckInPledgeID(pledge.getPledgeID());
-			
-			Iterator<CheckIn> checkInIterator = checkInsForPledge.iterator();
-			int earnedValue = 0;
-			int completedUnits = 0;
-			while (checkInIterator.hasNext())
-			{
-				CheckIn checkIn = checkInIterator.next();
-				int checkInValue = memberActivity.getValue() * checkIn.getCheckInUnits();
-				checkIn.setCheckInValue(checkInValue);
-				earnedValue += checkInValue;
-				completedUnits += checkIn.getCheckInUnits();
-				
-			}
-			pledge.setCheckInsForPledge(checkInsForPledge);
-			pledge.setEarnedValue(earnedValue);
-			pledge.setCompletedUnits(completedUnits);
-		}
 		
 		allPledges.addAll(pledges);
 		
@@ -299,5 +266,63 @@ public MemberInfo loadMemberInfo(long memberID)
 	
 	return new MemberInfo(member, memberActivities, allPledges);
 }
-//end of MemberInfor methods
+//end of MemberInfor method
+	
+public void loadPledges(Activity activity, List<Pledge> pledges)
+{
+	Iterator<Pledge> pledgeIterator = pledges.iterator();
+	
+	while (pledgeIterator.hasNext())
+	{
+		Pledge pledge = pledgeIterator.next();
+		pledge.setActivity(activity);
+		
+		Date today = new Date();
+		
+		if (pledge.getPledgeEndDate().compareTo(today) < 0)
+		{
+			pledge.setActive(false);
+		}
+		else
+		{
+			pledge.setActive(true);
+		}
+		
+		Cause cause = causeRepository.findByCauseID(pledge.getPledgeCauseId());
+		pledge.setCauseName(cause.getCauseName());
+	}//end of while 
+}//end of method loadPledges
+
+public void loadCheckInsForPledge(MemberActivity memberActivity,
+											Pledge pledge)
+{
+	List<CheckIn> checkInsForPledge = checkInRepository.findByCheckInPledgeID(pledge.getPledgeID());
+
+	Iterator<CheckIn> checkInIterator = checkInsForPledge.iterator();
+	int earnedValue = 0;
+	int completedUnits = 0;
+
+	while (checkInIterator.hasNext())
+	{
+		CheckIn checkIn = checkInIterator.next();
+		int checkInValue = memberActivity.getValue() * checkIn.getCheckInUnits();
+		checkIn.setCheckInValue(checkInValue);
+		earnedValue += checkInValue;
+		completedUnits += checkIn.getCheckInUnits();
+		
+	}
+	
+	pledge.setCheckInsForPledge(checkInsForPledge);
+	pledge.setEarnedValue(earnedValue);
+	pledge.setCompletedUnits(completedUnits);
+	
+	return;
+}//end of loadCheckInsForPledge
+
+/*
+public List<Pledge> loadActivePledges(long memberID) 
+{
+
+} //end of loadActivePledges
+*/
 }//end of class
