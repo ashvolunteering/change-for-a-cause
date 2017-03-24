@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -25,11 +27,13 @@ public class Pledge {
 	private int pledgeCauseId;
 	
 	@Column(name = "pledge_start_date")
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone="UTC")
+	//@Type(type="org.jadira.usertype.dateandtime.legacyjdk.PersistentDate")
 	private Date pledgeStartDate;
 	
 	@Column(name = "pledge_end_date")
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone="UTC")
+	//@Type(type="org.jadira.usertype.dateandtime.legacyjdk.PersistentDate")
 	private Date pledgeEndDate;
 	
 	@Column(name = "pledge_units")

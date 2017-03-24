@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.changeforgood.domain.*;
 import org.changeforgood.service.*;
 
@@ -16,6 +17,8 @@ import org.changeforgood.service.*;
 public class ChangeForGoodController {
 	@Autowired
 	ChangeForGoodService service;
+	
+	final static Logger logger = Logger.getLogger(ChangeForGoodController.class);
 	
 	//start of methods for Activity
 	@RequestMapping(method = RequestMethod.POST, value ="/activity")
@@ -193,7 +196,8 @@ public class ChangeForGoodController {
 				public @ResponseBody ResponseEntity<?> findAllPledges()
 				{
 					List<Pledge> pledgeList = service.findAllPledges();
-					
+					logger.info(pledgeList.get(0).getPledgeStartDate());
+					logger.info(pledgeList.get(0).getPledgeEndDate());
 					return ResponseEntity.status(HttpStatus.OK)
 							.body(pledgeList);
 				}

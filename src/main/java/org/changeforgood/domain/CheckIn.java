@@ -15,7 +15,7 @@ public class CheckIn {
 	private long checkInID;
 	
 	@Column(name = "check_in_date")
-	@JsonFormat(pattern="yyyy-MM-dd", timezone="GMT")
+	@JsonFormat(pattern="yyyy-MM-dd", timezone="UTC")
 	private Date checkInDate;
 	
 	@Column(name = "check_in_units")
